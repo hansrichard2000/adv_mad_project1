@@ -11,6 +11,7 @@ class _LoginState extends State<Login> {
   final ctrlEmail = TextEditingController();
   final ctrlPassword = TextEditingController();
   bool isVisible = true;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -87,11 +88,31 @@ class _LoginState extends State<Login> {
                           ),
                           SizedBox(height: 24),
                           ElevatedButton.icon(
-                            onPressed: () {
+                            onPressed: () async {
                               if (_formKey.currentState.validate()) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                String msg = await AuthServices.signIn(
+                                    ctrlEmail.text, ctrlPassword.text);
+                                if (msg == "success") {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                  ActivityServices.showToast(
+                                      "Login Success", Colors.green);
+                                  Navigator.pushReplacementNamed(
+                                      context, MainMenu.routeName);
+                                } else {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                  ActivityServices.showToast(msg, Colors.red);
+                                }
+
                                 //melanjutkan ke tahap berikutnya
-                                Navigator.pushNamed(
-                                    context, MainMenu.routeName);
+                                // Navigator.pushNamed(
+                                //     context, MainMenu.routeName);
                               } else {
                                 //kosongkan aja
                                 Fluttertoast.showToast(
@@ -122,7 +143,8 @@ class _LoginState extends State<Login> {
                       ))
                 ],
               ),
-            )
+            ),
+            isLoading == true ? ActivityServices.loadings() : Container()
           ],
         ),
       ),
