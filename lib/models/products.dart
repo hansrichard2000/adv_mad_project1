@@ -6,11 +6,19 @@ class Products extends Equatable {
   final String productDesc;
   final String productPrice;
   final String productImage;
+  final String addBy;
   final String createdAt;
   final String updatedAt;
 
-  Products(this.productId, this.productName, this.productDesc,
-      this.productPrice, this.productImage, this.createdAt, this.updatedAt);
+  Products(
+      this.productId,
+      this.productName,
+      this.productDesc,
+      this.productPrice,
+      this.addBy,
+      this.productImage,
+      this.createdAt,
+      this.updatedAt);
 
   @override
   List<Object> get props => [
@@ -18,6 +26,7 @@ class Products extends Equatable {
         productName,
         productDesc,
         productPrice,
+        addBy,
         productImage,
         createdAt,
         updatedAt,
