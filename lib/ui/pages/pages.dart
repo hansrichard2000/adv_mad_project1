@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:adv_mad_project1/models/models.dart';
 import 'package:adv_mad_project1/services/services.dart';
+import 'package:adv_mad_project1/ui/widgets/widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
